@@ -4,8 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anmol Mallikarjun Nemagouda Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    </h1>
+    <h1>Hi, I'm Anmol Mallikarjun Nemagouda</h1>
+    
+    <p>I am a passionate software developer with a keen interest in building innovative solutions.</p>
+ <p>Feel free to explore my portfolio and connect with me!</p> 
+    <div class="contact-container">
+        <button id="contactBtn" class="contact-btn">Contact Me</button>
+        <section id="contactSection" class="contact-section">
+            <h2>Contact Me</h2>
+            <ul class="contact-list"></ul></ul>
+                <li>Email: <a href="mailto:anmol.nmgd@gmail.com">anmol.nmgd@gmail.com</a></li>
+                <li><a href="tel:+919900000000">+1 6025960702</a></li>
+                <li><a href="https://github.com/AnmolNemagouda" target="_blank">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/AnmolMN" target="_blank">Linkedin</a></li>
+            </ul>
+        </section>
+    </div>
+    <script>
+        const btn = document.getElementById('contactBtn');
+        const section = document.getElementById('contactSection');
+        btn.onclick = () => {
+            section.style.display = section.style.display === 'none' ? 'block' : 'none';
+        };
+        // Ensure section is hidden on load
+        section.style.display = 'none';
+    </script>
 </body>
 </html>
