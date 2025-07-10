@@ -8,14 +8,14 @@
 </head>
 <body>
     <h1>Hi, I'm Anmol Mallikarjun Nemagouda</h1>
-    
+
     <p>I am a passionate software developer with a keen interest in building innovative solutions.</p>
  <p>Feel free to explore my portfolio and connect with me!</p> 
     <div class="contact-container">
         <button id="contactBtn" class="contact-btn">Contact Me</button>
         <section id="contactSection" class="contact-section">
             <h2>Contact Me</h2>
-            <ul class="contact-list"></ul></ul>
+            <ul class="contact-list">
                 <li>Email: <a href="mailto:anmol.nmgd@gmail.com">anmol.nmgd@gmail.com</a></li>
                 <li><a href="tel:+919900000000">+1 6025960702</a></li>
                 <li><a href="https://github.com/AnmolNemagouda" target="_blank">GitHub</a></li>
@@ -23,6 +23,26 @@
             </ul>
         </section>
     </div>
+
+    <section id="projects" class="projects-section">
+        <h2>My Projects</h2>
+        <div class="project-grid">
+            <div class="project-item">
+                <h3>Project One</h3>
+                <img src="https://via.placeholder.com/300x200" alt="Project One Image">
+                <p>A brief description of project one.</p>
+                <a href="#" target="_blank">View Project</a>
+            </div>
+            <div class="project-item">
+                <h3>Project Two</h3>
+                <img src="https://via.placeholder.com/300x200" alt="Project Two Image">
+                <p>A brief description of project two.</p>
+                <a href="#" target="_blank">View Project</a>
+            </div>
+            <!-- Add more project items as needed -->
+        </div>
+    </section>
+
     <script>
         const btn = document.getElementById('contactBtn');
         const section = document.getElementById('contactSection');
@@ -32,5 +52,9 @@
         // Ensure section is hidden on load
         section.style.display = 'none';
     </script>
+
+    <footer>
+        <p>&copy; Created by Anmol</p>
+    </footer>
 </body>
 </html>
