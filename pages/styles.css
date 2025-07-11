@@ -325,6 +325,74 @@ footer p {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
 }
 
+/* Phone reveal styles */
+.phone-reveal {
+    color: #333;
+    cursor: pointer !important;
+    font-weight: 500;
+    font-family: monospace;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    position: relative !important;
+    z-index: 10 !important;
+    padding: 2px 4px;
+    border-radius: 4px;
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.phone-reveal:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: scale(1.02);
+}
+
+.phone-reveal.revealing {
+    animation: revealFlicker 1.5s ease-in-out;
+}
+
+.phone-reveal.revealed {
+    cursor: default;
+    animation: fadeInReveal 0.5s ease-out;
+    font-family: inherit;
+    letter-spacing: normal;
+    background: transparent;
+}
+
+.phone-reveal.revealed a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.phone-reveal.revealed a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+@keyframes revealFlicker {
+    0% { opacity: 1; transform: scale(1); }
+    15% { opacity: 0.7; transform: scale(1.03); }
+    30% { opacity: 0.4; transform: scale(0.97); }
+    45% { opacity: 0.8; transform: scale(1.05); }
+    60% { opacity: 0.3; transform: scale(0.95); }
+    75% { opacity: 0.9; transform: scale(1.02); }
+    90% { opacity: 0.5; transform: scale(0.98); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeInReveal {
+    0% { 
+        opacity: 0; 
+        transform: translateY(5px);
+        filter: blur(1px);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
 /* Animations */
 @keyframes fadeInDown {
     from {

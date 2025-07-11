@@ -17,9 +17,9 @@
             <h2>Contact Me</h2>
             <ul class="contact-list">
                 <li>Email: <a href="mailto:anmol.nmgd@gmail.com">anmol.nmgd@gmail.com</a></li>
-                <li><a href="tel:+919900000000">+1 6025960702</a></li>
+                <li>Phone: <span id="phoneReveal" class="phone-reveal">███ ██████████</span></li>
                 <li><a href="https://github.com/AnmolNemagouda" target="_blank">GitHub</a></li>
-                <li><a href="https://www.linkedin.com/AnmolMN" target="_blank">Linkedin</a></li>
+                <li><a href="https://www.linkedin.com/in/anmolmn" target="_blank">LinkedIn</a></li>
             </ul>
         </section>
     </div>
@@ -44,13 +44,68 @@
     </section>
 
     <script>
-        const btn = document.getElementById('contactBtn');
-        const section = document.getElementById('contactSection');
-        btn.onclick = () => {
-            section.style.display = section.style.display === 'none' ? 'block' : 'none';
-        };
-        // Ensure section is hidden on load
-        section.style.display = 'none';
+        // Simple function approach
+        function revealPhone() {
+            console.log('Phone reveal function called');
+            const phoneReveal = document.getElementById('phoneReveal');
+            
+            if (!phoneReveal) {
+                console.log('Phone reveal element not found');
+                return;
+            }
+            
+            // Prevent multiple clicks
+            if (phoneReveal.classList.contains('revealed')) {
+                console.log('Already revealed');
+                return;
+            }
+            
+            console.log('Starting reveal effect');
+            // Add revealing effect
+            phoneReveal.classList.add('revealing');
+            
+            // After animation, reveal the actual number
+            setTimeout(() => {
+                console.log('Revealing phone number');
+                phoneReveal.innerHTML = '<a href="tel:+16025960702">+1 602-596-0702</a>';
+                phoneReveal.classList.remove('revealing');
+                phoneReveal.classList.add('revealed');
+                phoneReveal.onclick = null; // Disable further clicks
+            }, 1500);
+        }
+        
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded');
+            
+            const btn = document.getElementById('contactBtn');
+            const section = document.getElementById('contactSection');
+            const phoneReveal = document.getElementById('phoneReveal');
+            
+            console.log('Elements found:', btn, section);
+            console.log('Phone reveal element:', phoneReveal);
+            
+            // Contact button functionality
+            if (btn && section) {
+                // Ensure contact section is hidden on load first
+                section.style.display = 'none';
+                
+                btn.onclick = () => {
+                    console.log('Contact button clicked');
+                    if (section.style.display === 'none') {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                };
+            }
+            
+            // Phone reveal functionality
+            if (phoneReveal) {
+                phoneReveal.onclick = revealPhone;
+                console.log('Phone click handler attached');
+            }
+        });
     </script>
 
     <footer>
