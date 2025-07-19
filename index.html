@@ -7,40 +7,87 @@
     <link rel="stylesheet" href="pages/styles.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <h1>Hi, I'm Anmol Mallikarjun Nemagouda</h1>
-            <div class="contact-links">
-                <a href="mailto:anmol.nmgd@gmail.com" class="contact-icon" title="Email">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <a href="https://github.com/AnmolNemagouda" target="_blank" class="contact-icon" title="GitHub">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 19C4 20.5 4 16.5 2 16M22 16V22C22 22 18 20 15 20C12 20 10 22 10 22V16.93C10.02 16.36 10.21 15.82 10.54 15.37C10.87 14.91 11.33 14.56 11.86 14.36C7.5 13.85 2.84 12.16 2.84 5.5C2.84 4.24 3.35 3.03 4.24 2.15C3.81 1.05 3.84 -0.16 4.24 -1.24C4.24 -1.24 5.5 -1.62 8.24 0.16C10.37 -0.4 12.63 -0.4 14.76 0.16C17.5 -1.62 18.76 -1.24 18.76 -1.24C19.16 -0.16 19.19 1.05 18.76 2.15C19.65 3.03 20.16 4.24 20.16 5.5C20.16 12.15 15.5 13.85 11.14 14.36C11.67 14.56 12.13 14.91 12.46 15.37C12.79 15.82 12.98 16.36 13 16.93V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <a href="https://www.linkedin.com/in/anmolmn" target="_blank" class="contact-icon" title="LinkedIn">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M16 8C18.5 8 20.5 10 20.5 12.5V21H17V12.5C17 11.95 16.55 11.5 16 11.5C15.45 11.5 15 11.95 15 12.5V21H11.5V12.5C11.5 10 13.5 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </a>
-                <span id="phoneReveal" class="contact-icon phone-icon" title="Click to reveal phone">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22 16.92V19.92C22 20.49 21.61 20.99 21.04 21.01C20.35 21.03 19.58 20.94 18.76 20.76C15.31 19.98 12.2 18.24 9.85 15.89C7.5 13.54 5.76 10.43 4.98 6.98C4.8 6.16 4.71 5.39 4.73 4.7C4.75 4.13 5.25 3.74 5.82 3.74H8.82C9.4 3.74 9.88 4.19 9.92 4.77C9.99 5.93 10.18 7.05 10.49 8.12C10.64 8.62 10.5 9.16 10.13 9.53L8.85 10.81C10.1 13.26 12.74 15.9 15.19 17.15L16.47 15.87C16.84 15.5 17.38 15.36 17.88 15.51C18.95 15.82 20.07 16.01 21.23 16.08C21.81 16.12 22.26 16.6 22.26 17.18V20.18Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="phone-number">███ ██████████</span>
-                </span>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="photo-container">
+                    <!-- Avatar/Logo (shows initially) -->
+                    <div class="avatar-logo" id="avatarLogo" onclick="revealProfilePicture()" title="Click to reveal profile picture">
+                        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#E60012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <circle cx="12" cy="7" r="4" stroke="#E60012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <div class="click-hint">Click me!</div>
+                    </div>
+                    <!-- Actual profile picture (hidden initially) -->
+                    <img src="assets/Profile_pic/450542.jpeg" alt="Anmol Mallikarjun Nemagouda" class="profile-photo" id="profilePhoto" style="display: none;">
+                </div>
+                <h1 class="profile-name">Anmol Mallikarjun Nemagouda</h1>
+                <p class="profile-title">Software Developer</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <label>Email:</label>
+                        <div class="contact-value">
+                            <span class="email-text">anmol.nmgd@gmail.com</span>
+                            <button class="copy-btn" onclick="copyEmail()" title="Copy Email">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="white" stroke-width="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="white" stroke-width="2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <label>Phone:</label>
+                        <div class="contact-value">
+                            <span class="phone-text" id="phoneDisplay">███ ██████████</span>
+                            <button class="reveal-btn" id="phoneRevealBtn" onclick="revealPhone()" title="Reveal Phone">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="white" stroke-width="2"/>
+                                    <circle cx="12" cy="12" r="3" stroke="white" stroke-width="2"/>
+                                </svg>
+                            </button>
+                            <button class="copy-btn" id="phoneCopyBtn" onclick="copyPhone()" title="Copy Phone" style="display: none;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" stroke="white" stroke-width="2"/>
+                                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke="white" stroke-width="2"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <label>GitHub:</label>
+                        <div class="contact-value">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 19C4 20.5 4 16.5 2 16M22 16V22C22 22 18 20 15 20C12 20 10 22 10 22V16.93C10.02 16.36 10.21 15.82 10.54 15.37C10.87 14.91 11.33 14.56 11.86 14.36C7.5 13.85 2.84 12.16 2.84 5.5C2.84 4.24 3.35 3.03 4.24 2.15C3.81 1.05 3.84 -0.16 4.24 -1.24C4.24 -1.24 5.5 -1.62 8.24 0.16C10.37 -0.4 12.63 -0.4 14.76 0.16C17.5 -1.62 18.76 -1.24 18.76 -1.24C19.16 -0.16 19.19 1.05 18.76 2.15C19.65 3.03 20.16 4.24 20.16 5.5C20.16 12.15 15.5 13.85 11.14 14.36C11.67 14.56 12.13 14.91 12.46 15.37C12.79 15.82 12.98 16.36 13 16.93V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <a href="https://github.com/AnmolNemagouda" target="_blank" class="contact-link">AnmolNemagouda</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <label>LinkedIn:</label>
+                        <div class="contact-value">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 8C18.5 8 20.5 10 20.5 12.5V21H17V12.5C17 11.95 16.55 11.5 16 11.5C15.45 11.5 15 11.95 15 12.5V21H11.5V12.5C11.5 10 13.5 8 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <rect x="2" y="9" width="4" height="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <a href="https://www.linkedin.com/in/anmolmn" target="_blank" class="contact-link">anmolmn</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </header>
-
-    <p>I am a passionate software developer with a keen interest in building innovative solutions.</p>
-    <p>Feel free to explore my portfolio and connect with me!</p>
+        </aside>
+        
+        <main class="main-content">
+            <section class="intro-section">
+                <p>I am a passionate software developer with a keen interest in building innovative solutions.</p>
+                <p>Feel free to explore my portfolio and connect with me!</p>
+            </section>
 
     <section id="about" class="about-section">
         <h2>About Me</h2>
@@ -55,7 +102,7 @@
                     <p class="value-proposition">I bring a unique combination of technical expertise, creative problem-solving, and business acumen that helps teams deliver exceptional results while meeting deadlines and exceeding expectations.</p>
                     
                     <div class="resume-download">
-                        <a href="assets/resume/Anmol_Nemagouda_Resume.pdf" class="resume-btn" download="Anmol_Nemagouda_Resume.pdf">
+                        <a href="assets/resume/Anmol_Mallikarjun_Nemagouda_Resume.pdf" class="resume-btn" download="Anmol_Mallikarjun_Nemagouda_Resume.pdf">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.89 22 5.99 22H18C19.1 22 20 21.1 20 20V8L14 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <polyline points="14,2 14,8 20,8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -122,8 +169,6 @@
         </div>
     </section>
 
-
-
     <section id="projects" class="projects-section">
         <h2>My Projects</h2>
         <div class="project-grid">
@@ -142,50 +187,111 @@
             <!-- Add more project items as needed -->
         </div>
     </section>
+        </main>
+    </div>
 
     <script>
-        // Simple function approach
+        // Email copy functionality
+        function copyEmail() {
+            const email = 'anmol.nmgd@gmail.com';
+            navigator.clipboard.writeText(email).then(() => {
+                const copyBtn = document.querySelector('.copy-btn');
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '✓';
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                }, 2000);
+            });
+        }
+
+        // Phone copy functionality
+        function copyPhone() {
+            const phone = '+1 602-596-0702';
+            navigator.clipboard.writeText(phone).then(() => {
+                const phoneCopyBtn = document.getElementById('phoneCopyBtn');
+                const originalHTML = phoneCopyBtn.innerHTML;
+                phoneCopyBtn.innerHTML = '✓';
+                setTimeout(() => {
+                    phoneCopyBtn.innerHTML = originalHTML;
+                }, 2000);
+            });
+        }
+
+        // Phone reveal functionality
         function revealPhone() {
             console.log('Phone reveal function called');
-            const phoneReveal = document.getElementById('phoneReveal');
-            const phoneNumber = phoneReveal.querySelector('.phone-number');
+            const phoneDisplay = document.getElementById('phoneDisplay');
+            const phoneRevealBtn = document.getElementById('phoneRevealBtn');
+            const phoneCopyBtn = document.getElementById('phoneCopyBtn');
             
-            if (!phoneReveal || !phoneNumber) {
+            if (!phoneDisplay || !phoneRevealBtn || !phoneCopyBtn) {
                 console.log('Phone reveal elements not found');
                 return;
             }
             
             // Prevent multiple clicks
-            if (phoneReveal.classList.contains('revealed')) {
+            if (phoneRevealBtn.style.display === 'none') {
                 console.log('Already revealed');
                 return;
             }
             
             console.log('Starting reveal effect');
-            // Add revealing effect
-            phoneReveal.classList.add('revealing');
             
-            // After animation, reveal the actual number
+            // Add revealing class for animation
+            phoneDisplay.classList.add('revealing');
+            
+            // After the flickering animation, reveal the actual number
             setTimeout(() => {
                 console.log('Revealing phone number');
-                phoneNumber.innerHTML = '<a href="tel:+16025960702">+1 602-596-0702</a>';
-                phoneReveal.classList.remove('revealing');
-                phoneReveal.classList.add('revealed');
-                phoneReveal.onclick = null; // Disable further clicks
-            }, 1500);
+                phoneDisplay.textContent = '+1 602-596-0702';
+                phoneDisplay.classList.remove('revealing');
+                phoneDisplay.classList.add('revealed');
+                phoneRevealBtn.style.display = 'none';
+                phoneCopyBtn.style.display = 'inline-block';
+            }, 1000);
+        }
+
+        // Profile picture reveal functionality
+        function revealProfilePicture() {
+            console.log('Profile picture reveal function called');
+            const avatarLogo = document.getElementById('avatarLogo');
+            const profilePhoto = document.getElementById('profilePhoto');
+            
+            if (!avatarLogo || !profilePhoto) {
+                console.log('Profile elements not found');
+                return;
+            }
+            
+            // Prevent multiple clicks
+            if (avatarLogo.style.display === 'none') {
+                console.log('Already revealed');
+                return;
+            }
+            
+            console.log('Starting profile picture reveal');
+            
+            // Add reveal animation class
+            avatarLogo.classList.add('avatar-revealing');
+            
+            // After animation, switch to actual photo
+            setTimeout(() => {
+                avatarLogo.style.display = 'none';
+                profilePhoto.style.display = 'block';
+                profilePhoto.classList.add('photo-revealed');
+            }, 800);
         }
         
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded');
             
-            const phoneReveal = document.getElementById('phoneReveal');
+            const phoneRevealBtn = document.getElementById('phoneRevealBtn');
             
-            console.log('Phone reveal element:', phoneReveal);
+            console.log('Phone reveal element:', phoneRevealBtn);
             
             // Phone reveal functionality
-            if (phoneReveal) {
-                phoneReveal.onclick = revealPhone;
+            if (phoneRevealBtn) {
+                phoneRevealBtn.onclick = revealPhone;
                 console.log('Phone click handler attached');
             }
         });
