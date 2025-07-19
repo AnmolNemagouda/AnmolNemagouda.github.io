@@ -13,17 +13,20 @@
                 <div class="photo-container">
                     <!-- Avatar/Logo (shows initially) -->
                     <div class="avatar-logo" id="avatarLogo" onclick="revealProfilePicture()" title="Click to reveal profile picture">
-                        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="#E60012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                            <circle cx="12" cy="7" r="4" stroke="#E60012" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <div class="click-hint">Click me!</div>
+                        <img src="assets/Profile_pic/AMN_Pokeball_logo.png" alt="Logo" class="logo-image">
                     </div>
+                    <div class="click-hint">Click me!</div>
                     <!-- Actual profile picture (hidden initially) -->
                     <img src="assets/Profile_pic/450542.jpeg" alt="Anmol Mallikarjun Nemagouda" class="profile-photo" id="profilePhoto" style="display: none;">
                 </div>
                 <h1 class="profile-name">Anmol Mallikarjun Nemagouda</h1>
-                <p class="profile-title">Software Developer</p>
+                <div class="profile-title-container">
+                    <p class="profile-title">
+                        <span class="title-text">Masters in Software Engineering student at ASU (graduating Fall 2025)</span>
+                        <br>
+                        <span class="title-aspiration">Software Developer</span>
+                    </p>
+                </div>
                 
                 <div class="contact-info">
                     <div class="contact-item">
@@ -91,6 +94,7 @@
 
             <nav class="main-nav">
                 <a href="#about" class="nav-link">About Me</a>
+                <a href="#experience" class="nav-link">Experience</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="pages/contact.html" class="nav-link">Contact</a>
             </nav>
@@ -168,6 +172,54 @@
                             <span class="skill-tag">OOP</span>
                             <span class="skill-tag">Software Testing</span>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience-section">
+        <h2>Professional Experience</h2>
+        <div class="experience-timeline">
+            <div class="experience-item">
+                <div class="experience-date">Sep 2024 - Present</div>
+                <div class="experience-content">
+                    <h3 class="job-title">Software Engineering Tutor</h3>
+                    <h4 class="company-name">Arizona State University</h4>
+                    <ul class="job-responsibilities">
+                        <li>Delivered personalized one-on-one mentoring that reduced students' problem-solving time by 20%</li>
+                        <li>Enhanced student comprehension and higher course performance as reflected in student feedback</li>
+                        <li>Provided guidance on advanced software engineering concepts and best practices</li>
+                        <li>Assisted students with coursework in data structures, algorithms, and software development</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Mentoring</span>
+                        <span class="tech-tag">Software Engineering</span>
+                        <span class="tech-tag">DSA</span>
+                        <span class="tech-tag">Problem Solving</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="experience-item">
+                <div class="experience-date">Jul 2020 - Jan 2023</div>
+                <div class="experience-content">
+                    <h3 class="job-title">Systems Engineer</h3>
+                    <h4 class="company-name">Tata Consultancy Services - Bengaluru, India</h4>
+                    <ul class="job-responsibilities">
+                        <li>Spearheaded an inexperienced team of six engineers in maintenance, testing, and support of cybersecurity tools, achieving 100% system uptime for critical platforms</li>
+                        <li>Accelerated career progression by advancing from fresher to team lead within 18 months, demonstrating rapid skill acquisition in cybersecurity (MFA), systems maintenance, and product lifecycle management</li>
+                        <li>Executed rigorous testing of SmartCard platform products (e.g., Yubikey and online systems), identifying and resolving over 50 potential vulnerabilities prior to deployment</li>
+                        <li>Key contributor to the migration of SmartCard service from on-premises to cloud-based infrastructure, enhancing scalability by 40%, reducing maintenance costs by 25%, and boosting overall system uptime</li>
+                        <li>Directed server infrastructure operations for SHELL's SmartCard services, maintaining 100% availability while consistently meeting all key performance indicators</li>
+                    </ul>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Cybersecurity</span>
+                        <span class="tech-tag">MFA</span>
+                        <span class="tech-tag">SmartCard</span>
+                        <span class="tech-tag">Cloud Migration</span>
+                        <span class="tech-tag">Team Leadership</span>
+                        <span class="tech-tag">Systems Engineering</span>
                     </div>
                 </div>
             </div>
@@ -261,6 +313,7 @@
             console.log('Profile picture reveal function called');
             const avatarLogo = document.getElementById('avatarLogo');
             const profilePhoto = document.getElementById('profilePhoto');
+            const clickHint = document.querySelector('.click-hint');
             
             if (!avatarLogo || !profilePhoto) {
                 console.log('Profile elements not found');
@@ -278,11 +331,14 @@
             // Add reveal animation class
             avatarLogo.classList.add('avatar-revealing');
             
-            // After animation, switch to actual photo
+            // After animation, switch to actual photo and hide click hint
             setTimeout(() => {
                 avatarLogo.style.display = 'none';
                 profilePhoto.style.display = 'block';
                 profilePhoto.classList.add('photo-revealed');
+                if (clickHint) {
+                    clickHint.style.display = 'none';
+                }
             }, 800);
         }
         
