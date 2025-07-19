@@ -17,21 +17,287 @@ body {
 }
 
 .container {
-    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background: white;
     min-height: 100vh;
 }
 
-/* Sidebar Styles */
-.sidebar {
-    width: 320px;
+.main-content {
+    width: 100%;
+}
+
+/* Header Banner */
+.header-banner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background: #f8f8f8;
-    padding: 1.5rem;
-    border-right: 3px solid #E60012;
-    border-radius: 0 15px 15px 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    height: 100vh;
-    overflow-y: auto;
+    padding: 20px 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border-left: 4px solid #E60012;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-profile {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    min-width: 300px;
+}
+
+.header-photo-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.header-avatar-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    margin: 0;
+    animation: subtlePulse 3s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+}
+
+.header-avatar-logo:hover {
+    filter: brightness(1.2) saturate(1.3);
+    transform: scale(1.08);
+    box-shadow: 0 0 20px rgba(230, 0, 18, 0.5);
+    animation: none;
+}
+
+.header-avatar-logo::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    right: -3px;
+    bottom: -3px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    background: linear-gradient(45deg, rgba(230, 0, 18, 0.3), transparent, rgba(230, 0, 18, 0.3)) border-box;
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    mask-composite: subtract;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.header-avatar-logo:hover::after {
+    opacity: 1;
+    animation: rotateBorder 2s linear infinite;
+}
+
+.header-logo-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    display: block;
+    transform: none;
+    background: transparent;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.header-profile-photo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: none;
+}
+
+/* Avatar revealing animation */
+.header-avatar-logo.avatar-revealing {
+    animation: avatarReveal 0.8s ease-out forwards;
+}
+
+@keyframes avatarReveal {
+    0% { transform: scale(1) rotate(0deg); opacity: 1; }
+    25% { transform: scale(1.1) rotate(90deg); opacity: 0.8; }
+    50% { transform: scale(0.9) rotate(180deg); opacity: 0.6; }
+    75% { transform: scale(1.05) rotate(270deg); opacity: 0.4; }
+    100% { transform: scale(0) rotate(360deg); opacity: 0; }
+}
+
+@keyframes subtlePulse {
+    0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.4);
+    }
+    50% { 
+        box-shadow: 0 0 0 8px rgba(0, 123, 255, 0.1);
+    }
+}
+
+@keyframes rotateBorder {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.header-profile-photo.photo-revealed {
+    animation: photoReveal 0.8s ease-out forwards;
+}
+
+@keyframes photoReveal {
+    0% { transform: scale(0) rotate(-360deg); opacity: 0; }
+    25% { transform: scale(0.3) rotate(-270deg); opacity: 0.4; }
+    50% { transform: scale(0.7) rotate(-180deg); opacity: 0.6; }
+    75% { transform: scale(0.9) rotate(-90deg); opacity: 0.8; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.header-name-title {
+    flex: 1;
+}
+
+.header-profile-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0 0 8px 0;
+    line-height: 1.2;
+}
+
+.header-profile-title {
+    margin: 0;
+    line-height: 1.4;
+}
+
+.header-title-text {
+    color: #666;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.header-title-aspiration {
+    color: #E60012;
+    font-weight: 600;
+    font-size: 1rem;
+    display: inline-block;
+}
+
+.header-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 280px;
+}
+
+.header-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.header-contact-item label {
+    color: #555;
+    font-weight: 600;
+    min-width: 60px;
+}
+
+.header-contact-value {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.header-copy-btn, .header-reveal-btn {
+    background: #E60012;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+}
+
+.header-copy-btn:hover, .header-reveal-btn:hover {
+    background: #c50010;
+    transform: scale(1.05);
+}
+
+.header-contact-item svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Header logo containers for official brand logos */
+.header-logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    padding: 2px;
+    transition: all 0.3s ease;
+}
+
+.header-logo-container:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.github-logo {
+    background: #f6f8fa;
+}
+
+.github-logo:hover {
+    background: #e1e4e8;
+}
+
+.linkedin-logo {
+    background: #f0f7ff;
+}
+
+.linkedin-logo:hover {
+    background: #cce7ff;
+}
+
+.header-logo-container svg {
+    width: 20px;
+    height: 20px;
+}
+
+/* Specific colors for social media logos */
+.header-contact-item:nth-child(3) svg {
+    stroke: #333333; /* GitHub - black/dark gray */
+}
+
+.header-contact-item:nth-child(4) svg {
+    stroke: #0077B5; /* LinkedIn - official blue */
+}
+
+/* Sidebar Styles (hidden now) */
+.sidebar {
+    display: none;
 }
 
 .profile-section {
@@ -257,11 +523,89 @@ body {
     animation: revealFlicker 1.5s ease-in-out;
 }
 
+/* Header phone reveal animation */
+#headerPhoneDisplay.revealing {
+    animation: revealFlicker 1.5s ease-in-out;
+}
+
+#headerPhoneDisplay.revealed {
+    font-family: inherit;
+    letter-spacing: normal;
+    color: #E60012;
+    font-weight: 500;
+}
+
+/* Header phone link styling */
+.header-contact-value .phone-link {
+    color: #E60012;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.header-contact-value .phone-link:hover {
+    color: #c50010;
+    text-decoration: underline;
+}
+
 .phone-text.revealed {
     font-family: inherit;
     letter-spacing: normal;
     color: #E60012;
     font-weight: 500;
+}
+
+/* Contact section phone container and reveal functionality */
+.contact-phone-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.contact-phone-text {
+    font-family: monospace;
+    letter-spacing: 1px;
+}
+
+.contact-phone-text.revealing {
+    animation: revealFlicker 1.5s ease-in-out;
+}
+
+.contact-phone-link {
+    color: #E60012 !important;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.contact-phone-link:hover {
+    color: #c50010 !important;
+    text-decoration: underline;
+}
+
+.contact-reveal-btn,
+.contact-copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-reveal-btn:hover,
+.contact-copy-btn:hover {
+    background: rgba(230, 0, 18, 0.1);
+    transform: scale(1.1);
+}
+
+.contact-reveal-btn svg,
+.contact-copy-btn svg {
+    color: #E60012;
+    width: 16px;
+    height: 16px;
 }
 
 @keyframes revealFlicker {
@@ -323,37 +667,13 @@ body {
     color: white !important;
 }
 
-/* Main Content Styles */
+/* Main Content Styles - Updated for header layout */
 .main-content {
     flex: 1;
-    margin-left: 320px;
-    padding: 2rem;
+    padding: 0;
 }
 
-/* Header Styles */
-.main-content header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 2rem;
-    background: linear-gradient(135deg, #f8f8f8 0%, #ffffff 100%);
-    border-radius: 15px;
-    border: 2px solid #E60012;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.main-content header h1 {
-    font-size: 2.5rem;
-    color: #E60012;
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-}
-
-.main-content header p {
-    font-size: 1.2rem;
-    color: #666;
-    margin: 0;
-    font-weight: 400;
-}
+/* Old Header Styles - Removed since we now have header banner */
 
 /* Navigation Styles */
 .main-nav {
@@ -364,8 +684,8 @@ body {
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    margin-bottom: 3rem;
-    padding: 1rem;
+    margin-bottom: 2rem;
+    padding: 0.75rem 1rem;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
     border-radius: 12px;
@@ -540,11 +860,12 @@ body {
 /* About Section */
 .about-section {
     margin-bottom: 3rem;
-    padding: 2.5rem;
+    padding: 2rem 1.5rem;
     background: #f8f8f8;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 2px solid #E60012;
+    max-width: 100%;
 }
 
 .about-section h2 {
@@ -674,11 +995,12 @@ body {
 /* Contact Section */
 .contact-section {
     margin-bottom: 3rem;
-    padding: 2.5rem;
+    padding: 2rem 1.5rem;
     background: #f8f8f8;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 2px solid #E60012;
+    max-width: 100%;
 }
 
 .contact-section h2 {
@@ -730,7 +1052,6 @@ body {
 }
 
 .contact-detail-item svg {
-    color: #E60012;
     flex-shrink: 0;
 }
 
@@ -835,11 +1156,12 @@ body {
 /* Experience Section */
 .experience-section {
     margin-bottom: 3rem;
-    padding: 2.5rem;
+    padding: 2rem 1.5rem;
     background: #f8f8f8;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 2px solid #E60012;
+    max-width: 100%;
 }
 
 .experience-section h2 {
@@ -1079,11 +1401,12 @@ body {
 /* Projects Section */
 .projects-section {
     margin-bottom: 3rem;
-    padding: 2.5rem;
+    padding: 2rem 1.5rem;
     background: #f8f8f8;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 2px solid #E60012;
+    max-width: 100%;
 }
 
 .projects-section h2 {
@@ -1232,21 +1555,91 @@ footer p {
     }
 }
 
+/* Tablet and Small Laptop Responsive Styles */
+@media (max-width: 1024px) {
+    .header-banner {
+        padding: 18px 25px;
+        gap: 18px;
+    }
+    
+    .header-profile-name {
+        font-size: 1.6rem;
+    }
+    
+    .header-contact-info {
+        min-width: 250px;
+    }
+}
+
+@media (max-width: 900px) {
+    .header-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 22px;
+    }
+    
+    .header-contact-info {
+        min-width: unset;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-    .sidebar {
+    .header-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px 15px;
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .header-profile {
+        min-width: unset;
         width: 100%;
-        position: relative;
-        height: auto;
+    }
+    
+    .header-profile-name {
+        font-size: 1.5rem;
+    }
+    
+    .header-contact-info {
+        min-width: unset;
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .header-contact-item {
+        font-size: 0.8rem;
+        min-width: 45%;
+    }
+    
+    .header-contact-item label {
+        min-width: 50px;
+        font-size: 0.8rem;
+    }
+    
+    .sidebar {
+        display: none;
     }
     
     .main-content {
         margin-left: 0;
-        padding: 1rem;
+        padding: 0;
     }
     
     .container {
-        flex-direction: column;
+        padding: 5px 10px;
+    }
+    
+    .about-section, .experience-section, .projects-section, .contact-section {
+        padding: 1.5rem 1rem;
+        margin-bottom: 2rem;
     }
     
     .about-content {
@@ -1262,16 +1655,12 @@ footer p {
         gap: 2rem;
     }
     
-    .contact-section {
-        padding: 1.5rem;
-    }
-    
     .main-nav {
         position: sticky;
         top: 0;
         justify-content: space-between;
-        padding: 1rem 2rem;
-        margin-bottom: 2rem;
+        padding: 0.75rem 1.5rem;
+        margin-bottom: 1.5rem;
     }
     
     .desktop-nav {
