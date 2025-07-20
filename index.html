@@ -101,6 +101,22 @@
             <!-- Mobile Floating Navigation Panel -->
             <div class="mobile-floating-nav" id="mobileFloatingNav">
                 <div class="floating-nav-links">
+                    <!-- Scroll to Top Arrow Container -->
+                    <div class="mobile-scroll-container">
+                        <!-- Inactive placeholder (always visible) -->
+                        <div class="mobile-scroll-arrow mobile-scroll-inactive mobile-scroll-to-top-inactive">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <!-- Active arrow (shows when at bottom) -->
+                        <div class="mobile-scroll-arrow mobile-scroll-to-top" id="mobileScrollToTop" title="Scroll to Top">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
                     <a href="#about" class="floating-nav-link" title="About Me">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -125,6 +141,22 @@
                             <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </a>
+                    
+                    <!-- Scroll to Bottom Arrow Container -->
+                    <div class="mobile-scroll-container">
+                        <!-- Inactive placeholder (always visible) -->
+                        <div class="mobile-scroll-arrow mobile-scroll-inactive mobile-scroll-to-bottom-inactive">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <!-- Active arrow (shows when at top) -->
+                        <div class="mobile-scroll-arrow mobile-scroll-to-bottom" id="mobileScrollToBottom" title="Scroll to Bottom">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -384,6 +416,19 @@
         </div>
     </section>
         </main>
+    </div>
+
+    <!-- Desktop Scroll Navigation Arrows -->
+    <div class="scroll-to-top" id="scrollToTop" title="Scroll to Top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 15L12 9L6 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+    
+    <div class="scroll-to-bottom" id="scrollToBottom" title="Scroll to Bottom">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
     </div>
 
     <script>
@@ -691,6 +736,9 @@
             if (contactForm) {
                 contactForm.addEventListener('submit', handleContactForm);
             }
+            
+            // Initialize scroll navigation
+            initScrollNavigation();
         });
         
         // Contact form handler
@@ -723,6 +771,176 @@
                 submitBtn.innerHTML = originalText;
                 submitBtn.style.background = '#E60012';
             }, 3000);
+        }
+        
+        // Scroll navigation functionality
+        function initScrollNavigation() {
+            // Desktop scroll arrows
+            const scrollToTop = document.getElementById('scrollToTop');
+            const scrollToBottom = document.getElementById('scrollToBottom');
+            
+            // Mobile scroll arrows
+            const mobileScrollToTop = document.getElementById('mobileScrollToTop');
+            const mobileScrollToBottom = document.getElementById('mobileScrollToBottom');
+            
+            // Desktop scroll to top functionality
+            if (scrollToTop) {
+                scrollToTop.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Desktop scroll to bottom functionality  
+            if (scrollToBottom) {
+                scrollToBottom.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Mobile scroll to top functionality
+            if (mobileScrollToTop) {
+                mobileScrollToTop.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Mobile scroll to bottom functionality  
+            if (mobileScrollToBottom) {
+                mobileScrollToBottom.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: document.body.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Show/hide desktop arrows based on scroll position
+            function updateDesktopScrollArrows() {
+                if (!scrollToTop || !scrollToBottom) return;
+                
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.body.scrollHeight;
+                const scrollBottom = scrollTop + windowHeight;
+                
+                // Show "scroll to top" when not at the very top
+                if (scrollTop > 200) {
+                    scrollToTop.classList.add('visible');
+                } else {
+                    scrollToTop.classList.remove('visible');
+                }
+                
+                // Show "scroll to bottom" when not near the bottom
+                if (scrollBottom < documentHeight - 200) {
+                    scrollToBottom.classList.add('visible');
+                } else {
+                    scrollToBottom.classList.remove('visible');
+                }
+            }
+            
+            // Show/hide mobile arrows based on scroll position with improved logic
+            function updateMobileScrollArrows() {
+                if (!mobileScrollToTop || !mobileScrollToBottom) return;
+                
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const windowHeight = window.innerHeight;
+                const documentHeight = document.body.scrollHeight;
+                const scrollBottom = scrollTop + windowHeight;
+                const floatingNavLinks = document.querySelector('.floating-nav-links');
+                
+                // Get inactive placeholders
+                const inactiveTop = document.querySelector('.mobile-scroll-to-top-inactive');
+                const inactiveBottom = document.querySelector('.mobile-scroll-to-bottom-inactive');
+                
+                let arrowsVisible = false;
+                
+                // Show "scroll to top" only when at the very bottom
+                if (scrollBottom >= documentHeight - 50) {
+                    mobileScrollToTop.classList.add('visible');
+                    if (inactiveTop) inactiveTop.style.opacity = '0';
+                    arrowsVisible = true;
+                } else {
+                    mobileScrollToTop.classList.remove('visible');
+                    if (inactiveTop) inactiveTop.style.opacity = '1';
+                }
+                
+                // Show "scroll to bottom" only when at the very top
+                if (scrollTop <= 50) {
+                    mobileScrollToBottom.classList.add('visible');
+                    if (inactiveBottom) inactiveBottom.style.opacity = '0';
+                    arrowsVisible = true;
+                } else {
+                    mobileScrollToBottom.classList.remove('visible');
+                    if (inactiveBottom) inactiveBottom.style.opacity = '1';
+                }
+                
+                // Add class to container for smooth animation of nav items
+                if (floatingNavLinks) {
+                    if (arrowsVisible) {
+                        floatingNavLinks.classList.add('arrows-visible');
+                    } else {
+                        floatingNavLinks.classList.remove('arrows-visible');
+                    }
+                }
+            }
+            
+            // Update arrows on scroll
+            window.addEventListener('scroll', () => {
+                updateDesktopScrollArrows();
+                updateMobileScrollArrows();
+            });
+            
+            // Initial call
+            updateDesktopScrollArrows();
+            updateMobileScrollArrows();
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                // Only handle arrow keys when not typing in an input/textarea
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+                    return;
+                }
+                
+                switch(e.key) {
+                    case 'ArrowUp':
+                        e.preventDefault();
+                        window.scrollBy({
+                            top: -100,
+                            behavior: 'smooth'
+                        });
+                        break;
+                    case 'ArrowDown':
+                        e.preventDefault();
+                        window.scrollBy({
+                            top: 100,
+                            behavior: 'smooth'
+                        });
+                        break;
+                    case 'Home':
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                        break;
+                    case 'End':
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: document.body.scrollHeight,
+                            behavior: 'smooth'
+                        });
+                        break;
+                }
+            });
         }
     </script>
 
