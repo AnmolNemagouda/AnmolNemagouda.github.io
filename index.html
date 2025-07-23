@@ -494,6 +494,21 @@
         </div>
     </section>
 
+    <!-- Quick carousel initialization script for faster mobile startup -->
+    <script>
+        // Initialize carousel immediately on mobile for faster startup
+        (function() {
+            if (window.innerWidth <= 768) {
+                // Quick carousel setup to avoid delays
+                setTimeout(function() {
+                    if (typeof initMobileProjectCarousel === 'function') {
+                        initMobileProjectCarousel();
+                    }
+                }, 10); // Very minimal delay
+            }
+        })();
+    </script>
+
     <section id="contact" class="contact-section">
         <h2>Get In Touch</h2>
         <div class="contact-content">
@@ -928,8 +943,10 @@
             // Initialize scroll navigation
             initScrollNavigation();
             
-            // Initialize mobile project carousel
-            initMobileProjectCarousel();
+            // Initialize mobile project carousel immediately for faster startup
+            setTimeout(() => {
+                initMobileProjectCarousel();
+            }, 50); // Minimal delay for element rendering
         });
         
         // Contact form handler
@@ -1134,7 +1151,7 @@
             });
         }
         
-        // Mobile Project Carousel Enhancement
+        // Mobile Project Carousel with Arrow Navigation
         function initMobileProjectCarousel() {
             const projectGrid = document.querySelector('.project-grid');
             const projectItems = document.querySelectorAll('.project-item');
@@ -1153,6 +1170,36 @@
             let isUserInteracting = false;
             const projectWidth = 280 + 16; // project width + gap
             const totalProjects = projectItems.length;
+            
+            // Create arrow controls
+            function createArrowControls() {
+                const projectsSection = document.querySelector('.projects-section');
+                if (!projectsSection) return;
+                
+                // Create arrow container
+                const arrowContainer = document.createElement('div');
+                arrowContainer.className = 'carousel-arrows';
+                arrowContainer.innerHTML = `
+                    <button class="carousel-arrow carousel-arrow-left" id="carouselPrev">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="carousel-arrow carousel-arrow-right" id="carouselNext">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                `;
+                
+                projectsSection.style.position = 'relative';
+                projectsSection.appendChild(arrowContainer);
+                
+                return {
+                    prevBtn: document.getElementById('carouselPrev'),
+                    nextBtn: document.getElementById('carouselNext')
+                };
+            }
             
             // Create infinite scroll effect by cloning projects
             function setupInfiniteScroll() {
@@ -1198,13 +1245,40 @@
                 }
             }
             
-            // Auto-rotate function with smooth infinite loop
-            function autoRotate() {
-                if (isUserInteracting) return;
+            // Navigation functions
+            function goToPreviousProject() {
+                isUserInteracting = true;
+                stopAutoRotation();
+                
+                currentIndex--;
+                if (currentIndex < 0) {
+                    // Smoothly scroll to the cloned last project
+                    projectGrid.scrollTo({
+                        left: 0,
+                        behavior: 'smooth'
+                    });
+                    
+                    // After the smooth transition, reset to the real last project
+                    setTimeout(() => {
+                        projectGrid.scrollLeft = projectWidth * totalProjects;
+                        currentIndex = totalProjects - 1;
+                    }, 300);
+                } else {
+                    scrollToProject(currentIndex);
+                }
+                
+                // Resume auto-rotation after interaction
+                setTimeout(() => {
+                    isUserInteracting = false;
+                    startAutoRotation();
+                }, 3000);
+            }
+            
+            function goToNextProject() {
+                isUserInteracting = true;
+                stopAutoRotation();
                 
                 currentIndex++;
-                
-                // If we're moving past the last project, smoothly scroll to the clone
                 if (currentIndex >= totalProjects) {
                     // Scroll to the cloned first project
                     const scrollPosition = (totalProjects + 1) * projectWidth;
@@ -1217,16 +1291,28 @@
                     setTimeout(() => {
                         projectGrid.scrollLeft = projectWidth;
                         currentIndex = 0;
-                    }, 500); // Wait for smooth scroll to complete
+                    }, 300);
                 } else {
                     scrollToProject(currentIndex);
                 }
+                
+                // Resume auto-rotation after interaction
+                setTimeout(() => {
+                    isUserInteracting = false;
+                    startAutoRotation();
+                }, 3000);
+            }
+            
+            // Auto-rotate function with smooth infinite loop
+            function autoRotate() {
+                if (isUserInteracting) return;
+                goToNextProject();
             }
             
             // Start auto-rotation
             function startAutoRotation() {
                 clearInterval(autoRotateInterval);
-                autoRotateInterval = setInterval(autoRotate, 4000); // 4 seconds
+                autoRotateInterval = setInterval(autoRotate, 2500); // 2.5 seconds - faster rotation
             }
             
             // Stop auto-rotation
@@ -1234,106 +1320,11 @@
                 clearInterval(autoRotateInterval);
             }
             
-            // Pause rotation when user interacts
-            function pauseRotation() {
-                isUserInteracting = true;
-                stopAutoRotation();
-                
-                // Resume after 6 seconds of no interaction
-                setTimeout(() => {
-                    isUserInteracting = false;
-                    startAutoRotation();
-                }, 6000);
-            }
-            
-            // Touch/swipe handling with infinite loop support
-            let startX = 0;
-            let startScrollLeft = 0;
-            let isDragging = false;
-            
-            projectGrid.addEventListener('touchstart', (e) => {
-                pauseRotation();
-                startX = e.touches[0].pageX;
-                startScrollLeft = projectGrid.scrollLeft;
-                isDragging = true;
-            }, { passive: true });
-            
-            projectGrid.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                
-                const x = e.touches[0].pageX;
-                const walk = (x - startX) * 1.5;
-                projectGrid.scrollLeft = startScrollLeft - walk;
-            }, { passive: true });
-            
-            projectGrid.addEventListener('touchend', (e) => {
-                if (!isDragging) return;
-                isDragging = false;
-                
-                // Snap to nearest project
-                const scrolled = projectGrid.scrollLeft;
-                const newIndex = Math.round((scrolled - projectWidth) / projectWidth);
-                currentIndex = Math.max(0, Math.min(newIndex, totalProjects - 1));
-                
-                scrollToProject(currentIndex);
-                
-                // Check for infinite loop after snapping
-                setTimeout(() => {
-                    handleInfiniteLoop();
-                }, 300);
-            }, { passive: true });
-            
-            // Handle mouse events for desktop testing
-            let isMouseDown = false;
-            
-            projectGrid.addEventListener('mousedown', (e) => {
-                pauseRotation();
-                isMouseDown = true;
-                startX = e.pageX;
-                startScrollLeft = projectGrid.scrollLeft;
-                projectGrid.style.cursor = 'grabbing';
-                e.preventDefault();
-            });
-            
-            projectGrid.addEventListener('mousemove', (e) => {
-                if (!isMouseDown) return;
-                
-                const x = e.pageX;
-                const walk = (x - startX) * 1.5;
-                projectGrid.scrollLeft = startScrollLeft - walk;
-            });
-            
-            projectGrid.addEventListener('mouseup', (e) => {
-                if (!isMouseDown) return;
-                isMouseDown = false;
-                projectGrid.style.cursor = 'grab';
-                
-                // Snap to nearest project
-                const scrolled = projectGrid.scrollLeft;
-                const newIndex = Math.round((scrolled - projectWidth) / projectWidth);
-                currentIndex = Math.max(0, Math.min(newIndex, totalProjects - 1));
-                
-                scrollToProject(currentIndex);
-                
-                // Check for infinite loop after snapping
-                setTimeout(() => {
-                    handleInfiniteLoop();
-                }, 300);
-            });
-            
-            projectGrid.addEventListener('mouseleave', () => {
-                isMouseDown = false;
-                projectGrid.style.cursor = 'grab';
-            });
-            
-            // Prevent context menu on long press
-            projectGrid.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-            });
-            
-            // Handle scroll events to track position and manage infinite loop
+            // Handle scroll events with debouncing to prevent excessive processing
+            let scrollTimeout;
             projectGrid.addEventListener('scroll', () => {
-                if (!isDragging && !isMouseDown) {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
                     handleInfiniteLoop();
                     
                     // Update current index based on scroll position
@@ -1342,14 +1333,14 @@
                     if (newIndex >= 0 && newIndex < totalProjects) {
                         currentIndex = newIndex;
                     }
-                }
+                }, 50); // Debounce scroll events
             });
             
             // Update on window resize
             window.addEventListener('resize', () => {
                 if (isMobile()) {
                     // Maintain current position on resize
-                    setTimeout(() => scrollToProject(currentIndex, false), 100);
+                    setTimeout(() => scrollToProject(currentIndex, false), 50); // Faster resize response
                     if (!autoRotateInterval && !isUserInteracting) {
                         startAutoRotation();
                     }
@@ -1360,6 +1351,14 @@
             
             // Initialize carousel with infinite scroll
             setupInfiniteScroll();
+            
+            // Create and setup arrow controls
+            const arrows = createArrowControls();
+            if (arrows) {
+                arrows.prevBtn.addEventListener('click', goToPreviousProject);
+                arrows.nextBtn.addEventListener('click', goToNextProject);
+            }
+            
             projectGrid.style.cursor = 'grab';
             scrollToProject(0, false);
             startAutoRotation();
@@ -1381,9 +1380,9 @@
                         font-size: 0.7rem;
                         font-weight: 600;
                         border: 1px solid rgba(230, 0, 18, 0.2);
+                        z-index: 10;
                     ">∞ AUTO</div>
                 `;
-                projectsSection.style.position = 'relative';
                 projectsSection.appendChild(statusIndicator);
             }
         }
