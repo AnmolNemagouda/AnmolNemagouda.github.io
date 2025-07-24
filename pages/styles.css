@@ -13,9 +13,30 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     color: #333;
-    background: #ffffff;
+    background: linear-gradient(45deg, rgb(230, 0, 18) 0%, rgb(0, 195, 227) 25%, rgb(230, 0, 18) 50%, rgb(0, 195, 227) 75%, rgb(230, 0, 18) 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease-in-out infinite;
     overflow-x: hidden;
     width: 100%;
+    min-height: 100vh;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    25% {
+        background-position: 100% 50%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+    75% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .container {
@@ -1363,6 +1384,164 @@ body {
     flex-shrink: 0;
 }
 
+/* Certifications Section */
+.certifications-section {
+    margin-bottom: 3rem;
+    padding: 2rem 1.5rem;
+    background: #f8f8f8;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid #E60012;
+    max-width: 100%;
+}
+
+.certifications-section h2 {
+    color: #E60012;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.certifications-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.certification-item {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    border: 2px solid #E60012;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.certification-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(230, 0, 18, 0.2);
+    border-color: #E60012;
+}
+
+.certification-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.certification-logo {
+    flex-shrink: 0;
+}
+
+.cert-logo-placeholder {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #E60012, #FF4757);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(230, 0, 18, 0.3);
+}
+
+.certification-info {
+    flex: 1;
+}
+
+.certification-title {
+    color: #E60012;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.certification-issuer {
+    color: #333;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.certification-date {
+    color: #666;
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+.certification-content {
+    color: #333;
+}
+
+.certification-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+.certification-skills h4 {
+    color: #E60012;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+}
+
+.cert-skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.cert-skill-tag {
+    background: #E60012;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.cert-skill-tag:hover {
+    background: #C5000F;
+    transform: scale(1.05);
+}
+
+.certification-links {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.certification-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #E60012;
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.certification-link:hover {
+    background: #C5000F;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 0, 18, 0.3);
+}
+
+.certification-link svg {
+    flex-shrink: 0;
+}
+
 /* Experience Section */
 .experience-section {
     margin-bottom: 3rem;
@@ -2136,12 +2315,12 @@ footer p {
         padding: 0;
     }
     
-    .about-section, .experience-section, .projects-section, .contact-section {
+    .about-section, .experience-section, .certifications-section, .projects-section, .contact-section {
         padding: 1rem 0.75rem;
         margin-bottom: 1.5rem;
     }
     
-    .about-section h2, .experience-section h2, .projects-section h2, .contact-section h2 {
+    .about-section h2, .experience-section h2, .certifications-section h2, .projects-section h2, .contact-section h2 {
         font-size: 1.5rem;
         margin-bottom: 1rem;
         text-align: center;
@@ -2292,6 +2471,94 @@ footer p {
         margin: 2px;
     }
     
+    /* Certifications section mobile */
+    .certifications-section {
+        padding: 1.5rem 1rem;
+    }
+    
+    .certifications-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .certification-item {
+        padding: 1.5rem 1.25rem;
+        margin-bottom: 0;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(230, 0, 18, 0.05), rgba(230, 0, 18, 0.02));
+        border: 1px solid rgba(230, 0, 18, 0.15);
+        border-left: 4px solid #E60012;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    .certification-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .cert-logo-placeholder {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+    }
+    
+    .certification-info {
+        text-align: center;
+    }
+    
+    .certification-title {
+        font-size: 1.2rem;
+        margin-bottom: 0.4rem;
+    }
+    
+    .certification-issuer {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+    
+    .certification-date {
+        font-size: 0.85rem;
+    }
+    
+    .certification-description {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.25rem;
+        text-align: left;
+    }
+    
+    .certification-skills h4 {
+        font-size: 1rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .cert-skill-tags {
+        gap: 0.4rem;
+        margin-bottom: 1.25rem;
+        justify-content: center;
+    }
+    
+    .cert-skill-tag {
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+        margin: 2px;
+    }
+    
+    .certification-links {
+        justify-content: center;
+    }
+    
+    .certification-link {
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 6px;
+    }
+
     /* Projects section mobile */
     .project-grid {
         position: relative;
@@ -2669,7 +2936,7 @@ footer p {
         box-sizing: border-box;
     }
     
-    .about-section, .experience-section, .projects-section, .contact-section {
+    .about-section, .experience-section, .certifications-section, .projects-section, .contact-section {
         padding: 1rem 0.75rem;
         width: 100%;
         max-width: 100%;
@@ -2677,7 +2944,7 @@ footer p {
         overflow-x: hidden;
     }
     
-    .about-box, .skills-box, .experience-item, .contact-detail-item {
+    .about-box, .skills-box, .experience-item, .certification-item, .contact-detail-item {
         padding: 1rem 0.85rem;
         width: 100%;
         max-width: 100%;
