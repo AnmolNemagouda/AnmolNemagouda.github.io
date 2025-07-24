@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://anmolnemagouda.github.io/sitemap.xml
+
+# Allow crawling of CSS and JS files
+Allow: /pages/
+Allow: /assets/
+
+# Block crawling of private files (if any)
+Disallow: /private/
