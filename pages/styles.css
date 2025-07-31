@@ -17,19 +17,63 @@
     --nav-bg: rgba(255, 255, 255, 0.95);
     --nav-link-color: #333;
     --nav-link-hover: #E60012;
+    --nav-active-bg: rgba(230, 0, 18, 0.1);
+    --nav-hover-bg: rgba(230, 0, 18, 0.1);
+    --nav-floating-active: rgba(230, 0, 18, 0.9);
+    --nav-floating-hover: rgba(230, 0, 18, 0.8);
+    --nav-floating-shadow: rgba(230, 0, 18, 0.3);
+    --button-hover: #b8000e;
+    --arrow-bg: rgba(230, 0, 18, 0.9);
+    --arrow-hover: rgba(200, 0, 15, 0.95);
+    --arrow-shadow: rgba(230, 0, 18, 0.3);
+    --arrow-hover-shadow: rgba(230, 0, 18, 0.4);
+    --project-header-gradient: linear-gradient(135deg, #E60012 0%, #c8000f 100%);
+    --skill-tag-gradient: linear-gradient(135deg, #E60012, #FF4757);
     --project-type-bg: #E60012;
     --project-type-text: white;
     --experience-date-bg: #E60012;
     --experience-date-text: white;
     --contact-icon-color: #E60012;
     --reveal-mask-color: #E60012;
+    --footer-bg: white;
+    --footer-text-color: #e31e24;
+    --primary-color: #E60012;
+    --primary-hover: #b8000e;
+}
+
+/* Nintendo theme SVG color overrides */
+:root .copy-btn svg path, 
+:root .copy-btn svg circle,
+:root .copy-btn svg rect,
+:root .reveal-btn svg path, 
+:root .reveal-btn svg circle,
+:root .reveal-btn svg rect {
+    stroke: #e31e24 !important;
+}
+
+:root .header-copy-btn svg path, 
+:root .header-copy-btn svg circle,
+:root .header-copy-btn svg rect,
+:root .header-reveal-btn svg path, 
+:root .header-reveal-btn svg circle,
+:root .header-reveal-btn svg rect {
+    stroke: #e31e24 !important;
+}
+
+:root .contact-reveal-btn svg path,
+:root .contact-reveal-btn svg circle,
+:root .contact-reveal-btn svg rect,
+:root .contact-copy-btn svg path,
+:root .contact-copy-btn svg circle,
+:root .contact-copy-btn svg rect {
+    stroke: #e31e24 !important;
 }
 
 /* PlayStation Theme (Dark Mode) */
 [data-theme="dark"] {
     --primary-red: #1f1f1f;
     --primary-blue: #0066cc;
-    --bg-gradient: linear-gradient(45deg, #000814 0%, #001d3d 25%, #003566 50%, #0066cc 75%, #000814 100%);
+    --bg-gradient: radial-gradient(ellipse at center, #0066cc 0%, #000000 100%);
     --container-bg: #1a1a1a;
     --text-color: #e0e0e0;
     --text-light: #b0b0b0;
@@ -43,12 +87,28 @@
     --nav-bg: rgba(26, 26, 26, 0.95);
     --nav-link-color: #e0e0e0;
     --nav-link-hover: #0066cc;
+    --nav-active-bg: rgba(0, 102, 204, 0.1);
+    --nav-hover-bg: rgba(0, 102, 204, 0.1);
+    --nav-floating-active: rgba(0, 102, 204, 0.9);
+    --nav-floating-hover: rgba(0, 102, 204, 0.8);
+    --nav-floating-shadow: rgba(0, 102, 204, 0.3);
+    --button-hover: #004080;
+    --arrow-bg: rgba(0, 102, 204, 0.9);
+    --arrow-hover: rgba(0, 80, 160, 0.95);
+    --arrow-shadow: rgba(0, 102, 204, 0.3);
+    --arrow-hover-shadow: rgba(0, 102, 204, 0.4);
+    --project-header-gradient: linear-gradient(135deg, #0066cc 0%, #004080 100%);
+    --skill-tag-gradient: linear-gradient(135deg, #0066cc, #4488cc);
     --project-type-bg: #0066cc;
     --project-type-text: white;
     --experience-date-bg: #0066cc;
     --experience-date-text: white;
     --contact-icon-color: #0066cc;
     --reveal-mask-color: #0066cc;
+    --footer-bg: #000000;
+    --footer-text-color: #0066cc;
+    --primary-color: #0066cc;
+    --primary-hover: #004080;
 }
 
 /* General Styles */
@@ -320,7 +380,7 @@ body {
 }
 
 .header-copy-btn, .header-reveal-btn {
-    background: var(--bg-color);
+    background: var(--container-bg);
     border: 1px solid var(--primary-color);
     border-radius: 4px;
     padding: 4px 6px;
@@ -775,7 +835,7 @@ body {
 }
 
 .copy-btn, .reveal-btn {
-    background: var(--bg-color);
+    background: var(--container-bg);
     border: 1px solid var(--primary-color);
     color: var(--primary-color);
     width: 30px;
@@ -890,7 +950,7 @@ body {
 
 .nav-link:hover {
     color: var(--nav-link-hover);
-    background: rgba(0, 102, 204, 0.1);
+    background: var(--nav-hover-bg);
 }
 
 /* Header Theme Toggle */
@@ -959,18 +1019,22 @@ body {
 
 .nintendo-label {
     opacity: 1;
+    color: #E60012;
 }
 
 .playstation-label {
     opacity: 0.5;
+    color: #666;
 }
 
 [data-theme="dark"] .nintendo-label {
     opacity: 0.5;
+    color: #666;
 }
 
 [data-theme="dark"] .playstation-label {
     opacity: 1;
+    color: #0066cc;
 }
 
 /* Mobile Floating Navigation */
@@ -1006,16 +1070,16 @@ body {
     right: 30px;
     width: 50px;
     height: 50px;
-    background: var(--primary-color);
+    background: var(--border-accent);
     color: white;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
     transition: all 0.3s ease;
     box-shadow: var(--box-shadow);
     z-index: 1000;
@@ -1036,9 +1100,9 @@ body {
 }
 
 .scroll-to-top:hover, .scroll-to-bottom:hover {
-    background: #c8000f;
+    background: var(--button-hover);
     transform: scale(1.1);
-    box-shadow: 0 6px 18px rgba(230, 0, 18, 0.4);
+    box-shadow: 0 6px 18px var(--arrow-hover-shadow);
 }
 
 .scroll-to-top svg, .scroll-to-bottom svg {
@@ -1073,27 +1137,27 @@ body {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: rgba(230, 0, 18, 0.9);
+    background: var(--arrow-bg);
     color: white;
     cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0) translateX(20px);
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1) translateX(0);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: absolute;
     top: 0;
     left: 0;
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
-    box-shadow: 0 4px 12px rgba(230, 0, 18, 0.3);
+    box-shadow: 0 4px 12px var(--arrow-shadow);
     z-index: 2;
 }
 
-/* Inactive placeholder arrows (always visible) */
+/* Inactive placeholder arrows (now hidden) */
 .mobile-scroll-inactive {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1) translateX(0);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0) translateX(20px);
     background: rgba(200, 200, 200, 0.3);
     color: rgba(150, 150, 150, 0.6);
     cursor: default;
@@ -1110,9 +1174,9 @@ body {
 }
 
 .mobile-scroll-arrow:hover {
-    background: rgba(200, 0, 15, 0.95);
+    background: var(--arrow-hover);
     transform: scale(1.1) translateX(0);
-    box-shadow: 0 6px 18px rgba(230, 0, 18, 0.4);
+    box-shadow: 0 6px 18px var(--arrow-hover-shadow);
 }
 
 .mobile-scroll-arrow svg {
@@ -1162,7 +1226,7 @@ body {
     height: 50px;
     border-radius: 50%;
     background: transparent;
-    color: #333;
+    color: var(--nav-link-color);
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
@@ -1171,16 +1235,10 @@ body {
 }
 
 .floating-nav-link:hover, .floating-nav-link:focus {
-    background: rgba(230, 0, 18, 0.8);
+    background: var(--nav-floating-hover);
     color: white;
     transform: scale(1.1);
     outline: none;
-}
-
-.floating-nav-link.active {
-    background: rgba(230, 0, 18, 0.9);
-    color: white;
-    box-shadow: 0 0 15px rgba(230, 0, 18, 0.3);
 }
 
 .floating-nav-link svg {
@@ -1264,7 +1322,7 @@ body {
 
 .nav-link:hover {
     color: var(--nav-link-hover);
-    background: var(--bg-color);
+    background: var(--nav-hover-bg);
     transform: translateY(-2px);
 }
 
@@ -1279,21 +1337,12 @@ body {
     left: 50%;
     width: 0;
     height: 2px;
-    background: #E60012;
+    background: var(--nav-link-hover);
     transition: all 0.3s ease;
     transform: translateX(-50%);
 }
 
 .nav-link:hover::after {
-    width: 80%;
-}
-
-.nav-link.active {
-    color: #E60012;
-    background: #f8f8f8;
-}
-
-.nav-link.active::after {
     width: 80%;
 }
 
@@ -1320,15 +1369,15 @@ body {
 .about-section {
     margin-bottom: 3rem;
     padding: 2rem 1.5rem;
-    background: #f8f8f8;
+    background: var(--section-bg);
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border: 2px solid #E60012;
+    box-shadow: var(--box-shadow);
+    border: 2px solid var(--border-accent);
     max-width: 100%;
 }
 
 .about-section h2 {
-    color: #E60012;
+    color: var(--border-accent);
     font-size: 2.5rem;
     font-weight: 600;
     text-align: center;
@@ -1400,7 +1449,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: #E60012;
+    background: var(--border-accent);
     color: white;
     text-decoration: none;
     padding: 12px 24px;
@@ -1412,9 +1461,9 @@ body {
 }
 
 .resume-btn:hover {
-    background: #b8000e;
+    background: var(--button-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(230, 0, 18, 0.3);
+    box-shadow: 0 4px 15px var(--arrow-hover-shadow);
 }
 
 /* Skills Section */
@@ -1448,28 +1497,29 @@ body {
     font-weight: 500;
     border: 1px solid var(--skill-tag-bg);
     transition: all 0.3s ease;
-    box-shadow: 0 2px 6px rgba(0, 102, 204, 0.2);
+    box-shadow: 0 2px 6px var(--arrow-shadow);
 }
 
 .skill-tag:hover {
     background: var(--border-accent);
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 102, 204, 0.4);
+    box-shadow: 0 4px 12px var(--arrow-hover-shadow);
 }
 
 /* Contact Section */
 .contact-section {
     margin-bottom: 3rem;
     padding: 2rem 1.5rem;
-    background: var(--container-bg);
+    background: var(--section-bg) !important;
     border-radius: 12px;
     box-shadow: var(--box-shadow);
-    border: 2px solid var(--border-accent);
+    border: 2px solid var(--border-accent) !important;
     max-width: 100%;
+    color: var(--text-color);
 }
 
 .contact-section h2 {
-    color: var(--primary-color);
+    color: var(--border-accent);
     font-size: 2rem;
     margin-bottom: 2rem;
     text-align: center;
@@ -1488,7 +1538,7 @@ body {
 }
 
 .contact-info-side h3, .contact-form-side h3 {
-    color: #E60012;
+    color: var(--border-accent);
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     font-weight: 600;
@@ -1506,7 +1556,7 @@ body {
     align-items: center;
     gap: 1rem;
     padding: 1rem;
-    background: var(--bg-color);
+    background: var(--container-bg);
     border-radius: 8px;
     box-shadow: var(--box-shadow);
     transition: transform 0.3s ease;
@@ -1528,24 +1578,24 @@ body {
 
 .contact-label {
     font-size: 0.9rem;
-    color: var(--text-muted);
+    color: var(--text-light);
     font-weight: 500;
 }
 
 .contact-value-text {
     font-size: 1rem;
-    color: var(--text-primary);
+    color: var(--text-color);
     font-weight: 600;
 }
 
 .contact-link-item {
-    color: #333;
+    color: var(--text-color);
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .contact-link-item:hover {
-    color: #E60012;
+    color: var(--border-accent);
     text-decoration: underline;
 }
 
@@ -1564,24 +1614,26 @@ body {
 
 .form-group label {
     font-weight: 600;
-    color: #333;
+    color: var(--text-color);
     font-size: 0.95rem;
 }
 
 .form-group input,
 .form-group textarea {
     padding: 0.75rem;
-    border: 2px solid #ddd;
+    border: 2px solid var(--skill-category-border);
     border-radius: 6px;
     font-size: 1rem;
     transition: border-color 0.3s ease;
     font-family: inherit;
+    background: var(--container-bg);
+    color: var(--text-color);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #E60012;
+    border-color: var(--border-accent);
 }
 
 .form-group textarea {
@@ -1590,7 +1642,7 @@ body {
 }
 
 .send-message-btn {
-    background: #E60012;
+    background: var(--border-accent);
     color: white;
     border: none;
     padding: 0.875rem 2rem;
@@ -1606,7 +1658,7 @@ body {
 }
 
 .send-message-btn:hover {
-    background: #b8000e;
+    background: var(--button-hover);
     transform: translateY(-2px);
 }
 
@@ -1786,20 +1838,20 @@ body {
 }
 
 .certification-skills .skill-tag {
-    background: linear-gradient(135deg, #E60012, #FF4757);
+    background: var(--skill-tag-gradient);
     color: white;
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 500;
     border: none;
-    box-shadow: 0 2px 8px rgba(230, 0, 18, 0.2);
+    box-shadow: 0 2px 8px var(--arrow-shadow);
     transition: all 0.3s ease;
 }
 
 .certification-skills .skill-tag:hover {
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(230, 0, 18, 0.3);
+    box-shadow: 0 4px 12px var(--arrow-hover-shadow);
 }
 
 /* Experience Section */
@@ -2132,12 +2184,12 @@ body {
 
 .project-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 8px 25px rgba(230, 0, 18, 0.2);
+    box-shadow: 0 8px 25px var(--arrow-shadow);
 }
 
 .project-header {
     padding: 1.5rem 1.5rem 1rem 1.5rem;
-    background: linear-gradient(135deg, #E60012 0%, #c8000f 100%);
+    background: var(--project-header-gradient);
     color: white;
     display: flex;
     justify-content: space-between;
@@ -2269,16 +2321,16 @@ body {
 }
 
 .project-link.primary {
-    background: #E60012;
+    background: var(--border-accent);
     color: white;
-    border: 2px solid #E60012;
+    border: 2px solid var(--border-accent);
 }
 
 .project-link.primary:hover {
     background: white;
-    color: #E60012;
+    color: var(--border-accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(230, 0, 18, 0.3);
+    box-shadow: 0 4px 12px var(--arrow-shadow);
 }
 
 .project-link.disabled {
@@ -2319,14 +2371,60 @@ body {
 footer {
     text-align: center;
     padding: 2rem;
-    background: var(--bg-color);
+    background: var(--footer-bg);
     border-top: 2px solid var(--border-accent);
     margin-top: 3rem;
 }
 
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
 footer p {
-    color: var(--primary-color);
+    color: var(--footer-text-color);
     font-weight: 600;
+    margin: 0;
+    text-align: center;
+    flex: 1;
+}
+
+.footer-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    position: absolute;
+    right: 0;
+}
+
+.footer-link {
+    color: var(--footer-text-color);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--footer-text-color);
+}
+
+.footer-link:hover {
+    background: var(--footer-text-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.footer-link svg {
+    color: inherit;
+}
+
+.footer-link:hover svg {
+    stroke: white;
 }
 /* Medium Laptop Screens */
 @media screen and (max-width: 1200px) {
@@ -2534,14 +2632,19 @@ footer p {
         padding: 8px 12px;
         background: rgba(230, 0, 18, 0.05);
         border-radius: 8px;
-        border-left: 3px solid #E60012;
+        border-left: 3px solid var(--border-accent);
     }
+
+/* PlayStation theme override for header contact items */
+[data-theme="dark"] .header-contact-item {
+    background: rgba(0, 102, 204, 0.05);
+}
     
     .header-contact-item label {
         min-width: 55px;
         font-size: 0.8rem;
         font-weight: 600;
-        color: #E60012;
+        color: var(--border-accent);
         flex-shrink: 0;
     }
     
@@ -2692,10 +2795,10 @@ footer p {
         margin-bottom: 1.5rem;
         padding: 1.5rem 1.25rem;
         border-radius: 12px;
-        background: linear-gradient(135deg, rgba(230, 0, 18, 0.05), rgba(230, 0, 18, 0.02));
-        border: 1px solid rgba(230, 0, 18, 0.15);
-        border-left: 4px solid #E60012;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        background: var(--section-bg);
+        border: 1px solid var(--border-accent);
+        border-left: 4px solid var(--border-accent);
+        box-shadow: var(--box-shadow);
         position: relative;
         width: 100%;
         box-sizing: border-box;
@@ -2705,8 +2808,8 @@ footer p {
     .experience-date {
         order: -1; /* Move date to top */
         align-self: flex-start;
-        background: #E60012;
-        color: white;
+        background: var(--experience-date-bg);
+        color: var(--experience-date-text);
         font-size: 0.75rem;
         font-weight: 600;
         padding: 6px 12px;
@@ -2719,8 +2822,8 @@ footer p {
     .experience-date {
         order: -1; /* Move date to top */
         align-self: flex-start;
-        background: #E60012;
-        color: white;
+        background: var(--experience-date-bg);
+        color: var(--experience-date-text);
         font-size: 0.75rem;
         font-weight: 600;
         padding: 6px 12px;
@@ -2736,14 +2839,14 @@ footer p {
     
     .job-title {
         font-size: 1.2rem;
-        color: #E60012;
+        color: var(--border-accent);
         margin-bottom: 4px;
         font-weight: 600;
     }
     
     .company-name {
         font-size: 1rem;
-        color: #666;
+        color: var(--text-light);
         margin-bottom: 1rem;
         font-weight: 500;
     }
@@ -2756,7 +2859,7 @@ footer p {
         font-size: 0.9rem;
         line-height: 1.5;
         margin-bottom: 8px;
-        color: #444;
+        color: var(--text-color);
     }
     
     .tech-stack {
@@ -2787,9 +2890,9 @@ footer p {
         padding: 1.5rem;
         margin-bottom: 0;
         border-radius: 12px;
-        background: white;
-        border: 2px solid #E60012;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        background: var(--section-bg);
+        border: 2px solid var(--border-accent);
+        box-shadow: var(--box-shadow);
         width: 100%;
         box-sizing: border-box;
         height: auto;
@@ -3002,7 +3105,7 @@ footer p {
         transform: translateY(-50%);
         width: 48px;
         height: 48px;
-        background: rgba(230, 0, 18, 0.8);
+        background: var(--arrow-bg);
         border: none;
         border-radius: 50%;
         display: flex;
@@ -3014,13 +3117,13 @@ footer p {
         z-index: 20;
         backdrop-filter: blur(5px);
         -webkit-backdrop-filter: blur(5px);
-        box-shadow: 0 4px 15px rgba(230, 0, 18, 0.3);
+        box-shadow: 0 4px 15px var(--arrow-shadow);
     }
     
     .carousel-arrow:hover {
-        background: rgba(230, 0, 18, 0.9);
+        background: var(--arrow-hover);
         transform: translateY(-50%) scale(1.1);
-        box-shadow: 0 6px 20px rgba(230, 0, 18, 0.4);
+        box-shadow: 0 6px 20px var(--arrow-hover-shadow);
     }
     
     .carousel-arrow:active {
@@ -3294,6 +3397,18 @@ footer p {
         font-size: 0.8rem;
         margin-top: 2rem;
         margin-bottom: 80px; /* Add space for floating nav */
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+    }
+
+    .footer-links {
+        position: static;
+        justify-content: center;
+    }
 }
 
 /* Extra small mobile devices */
@@ -3561,5 +3676,4 @@ footer p {
         -webkit-line-clamp: 2;
         line-clamp: 2;
     }
-}
 }
