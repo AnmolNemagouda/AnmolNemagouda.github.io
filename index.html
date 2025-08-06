@@ -82,6 +82,12 @@
         window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
     <script defer src="/_vercel/insights/script.js"></script>
+    
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- EmailJS Configuration (excluded from GitHub) -->
+    <script src="config.js"></script>
 </head>
 <body>
     <div class="container">
@@ -1203,36 +1209,63 @@
             });
         }
         
-        // Contact form handler
+        // Contact form handler with EmailJS
         function handleContactForm(e) {
             e.preventDefault();
             
-            const formData = new FormData(e.target);
-            const name = formData.get('name');
-            const subject = formData.get('subject');
-            const email = formData.get('email');
-            const message = formData.get('message');
+            // Check if configuration is loaded
+            if (typeof EMAILJS_CONFIG === 'undefined') {
+                console.error('EmailJS configuration not loaded');
+                alert('Email service configuration error. Please try again later.');
+                return;
+            }
             
-            // Create mailto link with pre-filled subject and body
-            const emailSubject = encodeURIComponent(subject ? `${subject} - from ${name}` : `Portfolio Contact from ${name}`);
-            const body = encodeURIComponent(`Name: ${name}\nSubject: ${subject || 'Not specified'}\nEmail: ${email}\n\nMessage:\n${message}`);
-            const mailtoLink = `mailto:anmol.nmgd@gmail.com?subject=${emailSubject}&body=${body}`;
-            
-            // Open the default email client
-            window.location.href = mailtoLink;
-            
-            // Show success message
             const submitBtn = e.target.querySelector('.send-message-btn');
             const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '✓ Message Sent!';
-            submitBtn.style.background = '#28a745';
             
-            // Reset form and button after 3 seconds
-            setTimeout(() => {
-                e.target.reset();
-                submitBtn.innerHTML = originalText;
-                submitBtn.style.background = '#E60012';
-            }, 3000);
+            // Show loading state
+            submitBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Sending...';
+            submitBtn.disabled = true;
+            
+            const formData = new FormData(e.target);
+            const templateParams = {
+                from_name: formData.get('name'),
+                from_email: formData.get('email'),
+                subject: formData.get('subject') || 'Portfolio Contact',
+                message: formData.get('message')
+            };
+            
+            // Initialize EmailJS with secure configuration
+            emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
+            
+            // Send email using secure configuration
+            emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
+                .then(() => {
+                    // Success
+                    submitBtn.innerHTML = '✓ Message Sent!';
+                    submitBtn.style.background = '#28a745';
+                    e.target.reset();
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '#E60012';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                })
+                .catch((error) => {
+                    // Error
+                    console.error('EmailJS Error:', error);
+                    submitBtn.innerHTML = '✗ Failed to Send';
+                    submitBtn.style.background = '#dc3545';
+                    
+                    // Reset button after 3 seconds
+                    setTimeout(() => {
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.style.background = '#E60012';
+                        submitBtn.disabled = false;
+                    }, 3000);
+                });
         }
         
         // Scroll navigation functionality
