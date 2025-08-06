@@ -87,7 +87,19 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     
     <!-- EmailJS Configuration (excluded from GitHub) -->
-    <script src="config.js"></script>
+    <script src="config.js" onerror="console.error('Failed to load config.js')"></script>
+    
+    <!-- Configuration loading check -->
+    <script>
+        // Check if configuration loaded after a brief delay
+        setTimeout(() => {
+            if (typeof EMAILJS_CONFIG === 'undefined') {
+                console.warn('config.js did not load properly - using fallback configuration');
+            } else {
+                console.log('EmailJS configuration loaded successfully');
+            }
+        }, 100);
+    </script>
 </head>
 <body>
     <div class="container">
@@ -1213,15 +1225,28 @@
         function handleContactForm(e) {
             e.preventDefault();
             
+            const submitBtn = e.target.querySelector('.send-message-btn');
+            const originalText = submitBtn.innerHTML;
+            
             // Check if configuration is loaded
             if (typeof EMAILJS_CONFIG === 'undefined') {
-                console.error('EmailJS configuration not loaded');
-                alert('Email service configuration error. Please try again later.');
+                console.error('EmailJS configuration not loaded - config.js file is required');
+                alert('Email service is not configured. Please contact the site administrator.');
+                
+                // Reset button
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                }, 1000);
                 return;
             }
             
-            const submitBtn = e.target.querySelector('.send-message-btn');
-            const originalText = submitBtn.innerHTML;
+            // Final check for configuration completeness
+            if (!EMAILJS_CONFIG.PUBLIC_KEY || !EMAILJS_CONFIG.SERVICE_ID || !EMAILJS_CONFIG.TEMPLATE_ID) {
+                console.error('EmailJS configuration is incomplete:', EMAILJS_CONFIG);
+                alert('Email service configuration is incomplete. Please contact the site administrator.');
+                return;
+            }
             
             // Show loading state
             submitBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Sending...';
@@ -1235,13 +1260,16 @@
                 message: formData.get('message')
             };
             
-            // Initialize EmailJS with secure configuration
+            console.log('Initializing EmailJS with configuration...');
+            
+            // Initialize EmailJS with configuration
             emailjs.init(EMAILJS_CONFIG.PUBLIC_KEY);
             
-            // Send email using secure configuration
+            // Send email using configuration
             emailjs.send(EMAILJS_CONFIG.SERVICE_ID, EMAILJS_CONFIG.TEMPLATE_ID, templateParams)
                 .then(() => {
                     // Success
+                    console.log('Email sent successfully');
                     submitBtn.innerHTML = '✓ Message Sent!';
                     submitBtn.style.background = '#28a745';
                     e.target.reset();
@@ -1256,7 +1284,16 @@
                 .catch((error) => {
                     // Error
                     console.error('EmailJS Error:', error);
-                    submitBtn.innerHTML = '✗ Failed to Send';
+                    
+                    // Show user-friendly error message based on error type
+                    let errorMessage = '✗ Failed to Send';
+                    if (error.status === 400) {
+                        errorMessage = '✗ Invalid Email';
+                    } else if (error.status === 401) {
+                        errorMessage = '✗ Service Unavailable';
+                    }
+                    
+                    submitBtn.innerHTML = errorMessage;
                     submitBtn.style.background = '#dc3545';
                     
                     // Reset button after 3 seconds
